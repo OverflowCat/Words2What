@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- https://materializecss.com/ -->
+    <title>Untitled - 358282</title>
+    <style>
+        body {
+            background: #161616;
+            color: #bdbdbd;
+            font-weight: 300;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Helvetica neue, roboto;
+        }
+
+        h1 {
+            font-weight: 300;
+        }
+
+        #aboutme {
+            text-align: center;
+        }
+
+        #resultshow {
+            color: #161616;
+        }
+
+        #resultshowtitle {
+            color: #161616;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>挖词填空</h1>
+            <h5> <span id="typed"></span> </h5>
+        </div>
+        <div class="section">
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="inputta" class="materialize-textarea" data-length="10000" style="color:#EEEEEE"></textarea>
+                    <label for="inputta">待处理文本</label>
+                </div>
+            </div>
+            <a class="waves-effect waves-light btn-large" onclick="go();">处理</a>
+        </div>
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card black darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">关于</span>
+                            <p align="left"> 这段代码是用来应付学校里对《新概念英语》进行的测试的。题目的一部分将会把文章中的较难的词汇抽出，给出首字母进行填空。 </p>
+                        </div>
+                        <p style="font-size:20px" id="aboutme"> @OverflowCat </p>
+                        <div class="card-action">
+                            <a href="https://twitter.com/b3ZlcmZsb3cgY2F">Twitter</a>
+                            <a href="https://t.me/OverflowCat">Telegram</a>
+                            <a href="https://github.com/OverflowCat">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="resultdialog" class="modal">
+            <div class="modal-content">
+                <h4 id="resultshowtitle">结果</h4>
+                <p id="resultshow"> Results goes here. </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">关闭</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        String.prototype.times = function (n) {//String 重复
+            return Array.prototype.join.call({ length: n + 1 }, this);
+        }; function difficult(w) { return Math.random() > 0.65; } function go() {
+            var raw = $("textarea[id='inputta']").val() + " "; var l = raw.length; console.log(l); var r = "";//result
+            var word = ""; var answer = ""; var _LP = Date.now(); while (raw.length >= 1) {
+                if (Date.now() - _LP > 100) { (function (e, t) { console.error("Infinity loop on line ".concat(e, ", char ").concat(t, ". You can increase loop timeout in settings.")); })(20, 2); break; } var nextchar = raw.substr(0, 1); raw = raw.substring(1);//var noWords = /[^a-zA-Z]/;
+                if (!(nextchar >= 'A' && nextchar <= 'Z' || nextchar >= 'a' && nextchar <= 'z')) {//下一个字符是非字母
+                    if (word !== "") {//一个词语结束，Word 加入结果并清空。
+                        if (difficult(word)) { r += word.substr(0, 1) + "_".times(word.length - 1); answer += word; } else { r += word; } r += nextchar; word = "";
+                    } else {//不是一个词语结束
+                        r += nextchar;
+                    }
+                } else {//下一个字符是字母
+                    word += nextchar;
+                }
+            } console.log(r); document.getElementById("resultshow").innerHTML = r; $('.modal').modal('open');
+        }
+        $(document).ready(function () { $('.modal').modal(); });
+        var typed = new Typed('#typed', {
+            strings: ['Words2Word', 'Words2W???', 'Words2What', 'Words2W___'], typeSpeed: 77, backSpeed: 66, smartBackspace: true, loop: true//stringsElement: '#typed-strings
+        });</script>
+</body>
+</html>
