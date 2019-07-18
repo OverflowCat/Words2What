@@ -22,3 +22,9 @@ h1 {
 #resultshowtitle {
     color: #161616;
 }
+
+    .top {
+      padding: 2cm;
+      height: 190px;
+      margin: 50px;
+    }
